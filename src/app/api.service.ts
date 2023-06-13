@@ -6,11 +6,14 @@ import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 })
 export class ApiService {
 
-  firestore = inject(Firestore);
+  firestore: Firestore = inject(Firestore);
 
-  async getAllData() {
-    const querySnapshot = await getDocs(collection(this.firestore, 'data'));
-    return querySnapshot.docs.map((doc) => ({
+  constructor() {}
+
+  public async getfirebasedata() {
+    const colRef =  collection(this.firestore, 'firebasedata');
+    const snap = await getDocs(colRef);
+    return snap.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
     }));
